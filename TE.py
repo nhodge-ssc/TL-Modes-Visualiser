@@ -77,7 +77,7 @@ def handleTE(st, modes=[0, 0], type_of_waveguide="Rectangular", A=10, B=5, R=5):
         V = special.jvp(N, X[-1].round(3) / R * RAD) * np.cos(N * T)
         plt.axis("scaled")
         fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})  # modified to give polar plot in matplotlib 3.9
-        ax.streamplot(T, RAD, V, U, color="xkcd:azure")
+        ax.streamplot(T, RAD, V, U, color="xkcd:azure", density=1.2)  #increasing density above default of 1 gives slightly more streamlines to fill out higher order modes better.
         ax.set_rlim(0, R)  #sets radius axis to be only from 0 to max radius
         st.subheader("E field")
         
@@ -88,7 +88,7 @@ def handleTE(st, modes=[0, 0], type_of_waveguide="Rectangular", A=10, B=5, R=5):
         V = special.jv(N, X[-1].round(3) / R * RAD) * np.sin(N * T)
         fig, ax = plt.subplots()
         fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})  # modified to give polar plot in matplotlib 3.9
-        ax.streamplot(T, RAD, V, U, color="red")
+        ax.streamplot(T, RAD, V, U, color="red", density=1.2)  #increasing density above default of 1 gives slightly more streamlines to fill out higher order modes better.
         ax.set_rlim(0, R)  #sets radius axis to be only from 0 to max radius
         st.subheader("H field")
 
