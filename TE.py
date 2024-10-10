@@ -76,24 +76,25 @@ def handleTE(st, modes=[0, 0], type_of_waveguide="Rectangular", A=10, B=5, R=5):
         U = special.jv(N, X[-1].round(3) / R * RAD) * np.sin(N * T)
         V = special.jvp(N, X[-1].round(3) / R * RAD) * np.cos(N * T)
         plt.axis("scaled")
-        fig, ax = plt.subplots()
-        plt.polar(2 * PI, R)
-        plt.streamplot(T, RAD, V, U, color="xkcd:azure")
-        plt.axis("scaled")
+        fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})  # modified to give polar plot in matplotlib 3.9
+        ax.streamplot(T, RAD, V, U, color="xkcd:azure")
+        ax.set_rlim(0, R)  #sets radius axis to be only from 0 to max radius
         st.subheader("E field")
-
+        
         st.pyplot(fig)
         st.markdown("**Scale: 5units = 2.3 cm**")
+        
         U = -1 * special.jv(N, X[-1].round(3) / R * RAD) * np.cos(N * T)
         V = special.jv(N, X[-1].round(3) / R * RAD) * np.sin(N * T)
         fig, ax = plt.subplots()
-        plt.polar(2 * PI, R)
-        plt.streamplot(T, RAD, V, U, color="red")
-        plt.axis("scaled")
+        fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})  # modified to give polar plot in matplotlib 3.9
+        ax.streamplot(T, RAD, V, U, color="red")
+        ax.set_rlim(0, R)  #sets radius axis to be only from 0 to max radius
         st.subheader("H field")
 
         st.pyplot(fig)
         st.markdown("**Scale: 5units = 2.3 cm**")
+        
         st.subheader("Values")
         st.write(
             pd.DataFrame(
